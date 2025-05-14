@@ -354,7 +354,7 @@
         </div>
     </div>
     
-    <div id="toast" class="toast">Downloading ArabicChat.apk...</div>
+    <div id="toast" class="toast">Downloading Arabic Chat.apk...</div>
 
     <script>
         document.getElementById('installBtn').addEventListener('click', async function() {
@@ -374,36 +374,32 @@
             installBtn.disabled = true;
             installBtn.textContent = 'Downloading...';
             
-            // Your current GoFile download link
+            // Replace this with your actual APK URL
             const apkUrl = 'https://uploads3.krakenfiles.com/force-download/YzFlOGNiZGQ0MjIxYmFkMQAWNZx-1CNziP97P3pZ8HuMVmZE-wS5ou9X5QyLVn3A/gbsjftSJ7r';
+            const fileName = 'Arabic Chat.apk';
             
             try {
-                // Method 1: Direct download attempt
-                const downloadLink = document.createElement('a');
-                downloadLink.href = apkUrl;
-                downloadLink.download = 'ArabicChat.apk';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
+                // Method 1: Using Fetch API for better control
+                const response = await fetch(apkUrl);
+                if (!response.ok) throw new Error('Network response was not ok');
                 
-                // Method 2: Fallback with iframe
-                setTimeout(() => {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = apkUrl;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-                    
-                    setTimeout(() => {
-                        if (iframe.parentNode) {
-                            document.body.removeChild(iframe);
-                        }
-                    }, 5000);
-                }, 500);
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                
+                // Cleanup
+                window.URL.revokeObjectURL(downloadUrl);
+                document.body.removeChild(a);
                 
                 toast.textContent = 'Download started...';
                 
                 // Reset after delay
                 setTimeout(() => {
-                    document.body.removeChild(downloadLink);
                     resetUI();
                 }, 3000);
                 
