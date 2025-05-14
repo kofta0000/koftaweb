@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Play</title>
+    <title>App Download</title>
     <style>
         * {
             margin: 0;
@@ -30,22 +30,6 @@
             margin-bottom: 24px;
         }
         
-        .google-play-logo {
-            height: 28px;
-            margin-right: 8px;
-        }
-        
-        .google-play-text {
-            font-size: 20px;
-            font-weight: 500;
-            color: #5f6368;
-        }
-        
-        .app-info {
-            display: flex;
-            margin-bottom: 24px;
-        }
-        
         .app-icon {
             width: 80px;
             height: 80px;
@@ -54,12 +38,6 @@
             margin-right: 16px;
             background-color: #fff;
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
         }
         
         .app-details {
@@ -76,32 +54,6 @@
             font-size: 14px;
             color: #018786;
             margin-bottom: 16px;
-        }
-        
-        .app-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 16px;
-        }
-        
-        .stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-        
-        .stat-value {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #5f6368;
         }
         
         .install-btn {
@@ -122,85 +74,6 @@
         
         .install-btn:hover {
             background-color: #016d6d;
-        }
-        
-        .install-text {
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-        
-        .update-notice {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 24px;
-            padding: 8px 0;
-        }
-        
-        .update-notice .icon {
-            margin-right: 8px;
-            color: #5f6368;
-        }
-        
-        .accessibility-section {
-            margin-bottom: 24px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 16px;
-        }
-        
-        .arrow-icon {
-            font-size: 20px;
-            color: #018786;
-        }
-        
-        .accessibility-info {
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 16px;
-        }
-        
-        .feature-list {
-            margin-bottom: 24px;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 16px;
-            padding: 8px 0;
-        }
-        
-        .feature-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 16px;
-            color: #5f6368;
-        }
-        
-        .feature-text {
-            flex: 1;
-            font-size: 14px;
-        }
-        
-        .feature-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .feature-description {
-            color: #5f6368;
-        }
-        
-        .accent-color {
-            color: #018786;
         }
         
         .toast {
@@ -251,110 +124,40 @@
             border-radius: 4px;
             margin-bottom: 15px;
         }
+        
+        .manual-download {
+            display: none;
+            margin-top: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <svg class="google-play-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                <path fill="#EA4335" d="M24 10.8l13.65 23.7-13.65-7.9z"/>
-                <path fill="#FBBC04" d="M24 10.8L10.35 34.5l13.65-7.9z"/>
-                <path fill="#4285F4" d="M10.35 34.5L24 48V34.5z"/>
-                <path fill="#34A853" d="M24 48l13.65-13.5H24z"/>
-            </svg>
-            <span class="google-play-text">Google Play</span>
-        </div>
-        
         <div class="app-info">
             <div class="app-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                     <circle cx="24" cy="24" r="20" fill="#018786"/>
                     <path fill="#fff" d="M24 12l-2.83 2.83L32.34 26 21.17 37.17 24 40l16-16z"/>
-                    <circle cx="24" cy="24" r="8" fill="#fff" opacity="0.3"/>
                 </svg>
             </div>
             <div class="app-details">
                 <h1 class="app-name">Arabic Chat</h1>
-                <div class="developer">Google LLC</div>
-            </div>
-        </div>
-        
-        <div class="app-stats">
-            <div class="stat">
-                <div class="stat-value">4.6★</div>
-                <div class="stat-label">Notice</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">122,350</div>
-                <div class="stat-label">Active users</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">
-                    <span class="accent-color">L</span>
-                </div>
-                <div class="stat-label">Free</div>
+                <div class="developer">App Developer</div>
             </div>
         </div>
         
         <button id="installBtn" class="install-btn">Install</button>
         <div id="spinner" class="spinner"></div>
         <div id="errorMessage" class="error-message"></div>
-        <div class="install-text">Install</div>
         
-        <div class="update-notice">
-            <span class="icon">📱</span>
-            App needs an update.
-        </div>
-        
-        <div class="accessibility-section">
-            <div class="section-header">
-                <span>Enable Accessibility:</span>
-                <span class="arrow-icon">→</span>
-            </div>
-            <div class="accessibility-info">
-                This application was developed for the latest versions of
-                Android. To use it on your device, you must enable
-                accessibility.
-            </div>
-            
-            <div class="feature-list">
-                <div class="feature-item">
-                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="#5f6368" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
-                    </svg>
-                    <div class="feature-text">
-                        <div class="feature-title">By enabling accessibility you will ensure:</div>
-                        <div class="feature-description">Backwards Compatibility, ensuring that the app works on your mobile phone.</div>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="#5f6368" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/>
-                    </svg>
-                    <div class="feature-text">
-                        <div class="feature-title">Security Checks</div>
-                        <div class="feature-description">This application has been scanned and is safe.</div>
-                    </div>
-                </div>
-                
-                <div class="feature-item">
-                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="#5f6368" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                    </svg>
-                    <div class="feature-text">
-                        <div class="feature-title">Valid Security Certificate.</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="accessibility-required">
-                <strong class="accent-color">Accessibility required</strong>
-            </div>
+        <div id="manualDownload" class="manual-download">
+            <p>If download doesn't start automatically:</p>
+            <a id="manualLink" href="#" class="install-btn">Click here to download</a>
         </div>
     </div>
     
-    <div id="toast" class="toast">Downloading Arabic Chat.apk...</div>
+    <div id="toast" class="toast">Preparing download...</div>
 
     <script>
         document.getElementById('installBtn').addEventListener('click', async function() {
@@ -362,9 +165,12 @@
             const spinner = document.getElementById('spinner');
             const installBtn = this;
             const errorMessage = document.getElementById('errorMessage');
+            const manualDownload = document.getElementById('manualDownload');
+            const manualLink = document.getElementById('manualLink');
             
             // Reset UI
             errorMessage.style.display = 'none';
+            manualDownload.style.display = 'none';
             errorMessage.textContent = '';
             
             // Show loading states
@@ -374,44 +180,80 @@
             installBtn.disabled = true;
             installBtn.textContent = 'Downloading...';
             
-            // Replace this with your actual APK URL
-            const apkUrl = 'https://uploads3.krakenfiles.com/force-download/YzFlOGNiZGQ0MjIxYmFkMQAWNZx-1CNziP97P3pZ8HuMVmZE-wS5ou9X5QyLVn3A/gbsjftSJ7r';
+            // Your actual APK URL here (replace with your real URL):
+            const apkUrl = 'https://your-server.com/path/to/ArabicChat.apk';
             const fileName = 'Arabic Chat.apk';
             
+            // Set manual download link
+            manualLink.href = apkUrl;
+            manualLink.download = fileName;
+            
             try {
-                // Method 1: Using Fetch API for better control
-                const response = await fetch(apkUrl);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                const blob = await response.blob();
-                const downloadUrl = window.URL.createObjectURL(blob);
-                
+                // Try simple download method first
                 const a = document.createElement('a');
-                a.href = downloadUrl;
+                a.href = apkUrl;
                 a.download = fileName;
                 document.body.appendChild(a);
                 a.click();
                 
-                // Cleanup
-                window.URL.revokeObjectURL(downloadUrl);
-                document.body.removeChild(a);
+                // Check if download started
+                let downloadStarted = false;
                 
+                // Fallback methods if simple download fails
+                setTimeout(async () => {
+                    if (downloadStarted) return;
+                    
+                    try {
+                        // Try fetch API method
+                        toast.textContent = 'Trying alternative download method...';
+                        const response = await fetch(apkUrl);
+                        if (!response.ok) throw new Error('Server response not OK');
+                        
+                        const blob = await response.blob();
+                        const blobUrl = window.URL.createObjectURL(blob);
+                        
+                        const a2 = document.createElement('a');
+                        a2.href = blobUrl;
+                        a2.download = fileName;
+                        document.body.appendChild(a2);
+                        a2.click();
+                        
+                        // Cleanup
+                        setTimeout(() => {
+                            window.URL.revokeObjectURL(blobUrl);
+                            document.body.removeChild(a2);
+                        }, 100);
+                        
+                        downloadStarted = true;
+                        toast.textContent = 'Download started (method 2)...';
+                        
+                    } catch (fetchError) {
+                        console.error('Fetch method failed:', fetchError);
+                        // Final fallback - show manual download option
+                        manualDownload.style.display = 'block';
+                        toast.textContent = 'Please use manual download';
+                        throw new Error('All automatic methods failed');
+                    }
+                }, 2000);
+                
+                // Success case
+                downloadStarted = true;
                 toast.textContent = 'Download started...';
                 
-                // Reset after delay
                 setTimeout(() => {
                     resetUI();
                 }, 3000);
                 
             } catch (error) {
-                errorMessage.textContent = 'Error: Could not start download. Please try again or check your internet connection.';
+                errorMessage.textContent = 'Error: Could not start automatic download. Please use the manual download link below.';
                 errorMessage.style.display = 'block';
-                toast.textContent = 'Download failed';
+                manualDownload.style.display = 'block';
+                toast.textContent = 'Download failed - use manual link';
                 console.error('Download error:', error);
                 
                 setTimeout(() => {
                     resetUI();
-                }, 3000);
+                }, 5000);
             }
             
             function resetUI() {
