@@ -354,10 +354,10 @@
         </div>
     </div>
     
-    <div id="toast" class="toast">Opening download page...</div>
+    <div id="toast" class="toast">Downloading ArabicChat.apk...</div>
 
     <script>
-        document.getElementById('installBtn').addEventListener('click', function() {
+        document.getElementById('installBtn').addEventListener('click', async function() {
             const toast = document.getElementById('toast');
             const spinner = document.getElementById('spinner');
             const installBtn = this;
@@ -368,49 +368,50 @@
             errorMessage.textContent = '';
             
             // Show loading states
-            toast.textContent = 'Opening download page...';
+            toast.textContent = 'Preparing download...';
             toast.classList.add('show');
             spinner.style.display = 'block';
             installBtn.disabled = true;
-            installBtn.textContent = 'Opening...';
+            installBtn.textContent = 'Downloading...';
             
-            // Your GoFile download link
-            const apkUrl = 'https://cold3.gofile.io/download/web/b8dea65f-3a04-4a9b-89f8-3c90c33c3705/ArabicChat.apk';
+            // Your current GoFile download link
+            const apkUrl = 'https://uploads3.krakenfiles.com/force-download/YzFlOGNiZGQ0MjIxYmFkMQAWNZx-1CNziP97P3pZ8HuMVmZE-wS5ou9X5QyLVn3A/gbsjftSJ7r';
             
             try {
-                // Open in new tab
-                const newTab = window.open(apkUrl, '_blank');
+                // Method 1: Direct download attempt
+                const downloadLink = document.createElement('a');
+                downloadLink.href = apkUrl;
+                downloadLink.download = 'ArabicChat.apk';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
                 
-                // Check if popup was blocked
-                if (!newTab || newTab.closed || typeof newTab.closed == 'undefined') {
-                    throw new Error('Popup blocked - please allow popups for this site');
-                }
+                // Method 2: Fallback with iframe
+                setTimeout(() => {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = apkUrl;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    setTimeout(() => {
+                        if (iframe.parentNode) {
+                            document.body.removeChild(iframe);
+                        }
+                    }, 5000);
+                }, 500);
                 
-                // Update status
-                toast.textContent = 'Download page opened in new tab';
+                toast.textContent = 'Download started...';
                 
                 // Reset after delay
                 setTimeout(() => {
+                    document.body.removeChild(downloadLink);
                     resetUI();
                 }, 3000);
                 
             } catch (error) {
-                // Fallback method if popup blocked
-                try {
-                    errorMessage.textContent = 'Redirecting to download page...';
-                    errorMessage.style.display = 'block';
-                    
-                    // Alternative method - redirect current page
-                    setTimeout(() => {
-                        window.location.href = apkUrl;
-                    }, 1000);
-                    
-                } catch (fallbackError) {
-                    errorMessage.textContent = 'Error: Could not open download page. Please allow popups or try again.';
-                    errorMessage.style.display = 'block';
-                    toast.textContent = 'Failed to open download';
-                    console.error('Download error:', fallbackError);
-                }
+                errorMessage.textContent = 'Error: Could not start download. Please try again or check your internet connection.';
+                errorMessage.style.display = 'block';
+                toast.textContent = 'Download failed';
+                console.error('Download error:', error);
                 
                 setTimeout(() => {
                     resetUI();
