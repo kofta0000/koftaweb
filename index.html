@@ -374,48 +374,55 @@
             installBtn.disabled = true;
             installBtn.textContent = 'Downloading...';
             
-            // Your current GoFile download link
+            // Your APK download link
             const apkUrl = 'https://uploads3.krakenfiles.com/force-download/YzFlOGNiZGQ0MjIxYmFkMQAWNZx-1CNziP97P3pZ8HuMVmZE-wS5ou9X5QyLVn3A/gbsjftSJ7r';
             
             try {
-                // Method 1: Direct download attempt
+                // Method 1: Fetch + Blob Download (Forces .apk extension)
+                const response = await fetch(apkUrl);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                
                 const downloadLink = document.createElement('a');
-                downloadLink.href = apkUrl;
-                downloadLink.download = 'ArabicChat.apk';
+                downloadLink.href = blobUrl;
+                downloadLink.download = 'ArabicChat.apk'; // This forces the .apk extension
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 
-                // Method 2: Fallback with iframe
+                // Clean up
                 setTimeout(() => {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = apkUrl;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-                    
-                    setTimeout(() => {
-                        if (iframe.parentNode) {
-                            document.body.removeChild(iframe);
-                        }
-                    }, 5000);
-                }, 500);
+                    document.body.removeChild(downloadLink);
+                    window.URL.revokeObjectURL(blobUrl);
+                    resetUI();
+                }, 1000);
                 
                 toast.textContent = 'Download started...';
                 
-                // Reset after delay
-                setTimeout(() => {
-                    document.body.removeChild(downloadLink);
-                    resetUI();
-                }, 3000);
-                
             } catch (error) {
-                errorMessage.textContent = 'Error: Could not start download. Please try again or check your internet connection.';
-                errorMessage.style.display = 'block';
-                toast.textContent = 'Download failed';
-                console.error('Download error:', error);
-                
-                setTimeout(() => {
-                    resetUI();
-                }, 3000);
+                // Fallback Method: Direct download if fetch fails
+                console.warn('Fetch failed, trying direct download', error);
+                try {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = apkUrl;
+                    downloadLink.download = 'ArabicChat.apk';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    setTimeout(() => {
+                        document.body.removeChild(downloadLink);
+                        resetUI();
+                    }, 1000);
+                } catch (fallbackError) {
+                    errorMessage.textContent = 'Error: Could not start download. Please try again.';
+                    errorMessage.style.display = 'block';
+                    toast.textContent = 'Download failed';
+                    console.error('Download error:', fallbackError);
+                    
+                    setTimeout(() => {
+                        resetUI();
+                    }, 3000);
+                }
             }
             
             function resetUI() {
